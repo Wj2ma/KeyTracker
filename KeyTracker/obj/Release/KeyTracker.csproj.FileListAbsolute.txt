@@ -1,0 +1,10 @@
+C:\Users\William\source\repos\KeyTracker\KeyTracker\bin\Release\KeyTracker.exe.config
+C:\Users\William\source\repos\KeyTracker\KeyTracker\bin\Release\KeyTracker.exe
+C:\Users\William\source\repos\KeyTracker\KeyTracker\bin\Release\KeyTracker.pdb
+C:\Users\William\source\repos\KeyTracker\KeyTracker\obj\Release\KeyTracker.Properties.Resources.resources
+C:\Users\William\source\repos\KeyTracker\KeyTracker\obj\Release\KeyTracker.csproj.GenerateResource.cache
+C:\Users\William\source\repos\KeyTracker\KeyTracker\obj\Release\KeyTracker.csproj.CoreCompileInputs.cache
+C:\Users\William\source\repos\KeyTracker\KeyTracker\obj\Release\KeyTracker.exe
+C:\Users\William\source\repos\KeyTracker\KeyTracker\obj\Release\KeyTracker.pdb
+C:\Users\William\source\repos\KeyTracker\KeyTracker\obj\Release\KeyTracker.csprojAssemblyReference.cache
+C:\Users\William\source\repos\KeyTracker\KeyTracker\obj\Release\KeyTracker.KeyTracker.resources
