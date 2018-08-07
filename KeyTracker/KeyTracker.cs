@@ -19,6 +19,13 @@ namespace KeyTracker {
             ElapsedTime = 4
         }
 
+        const int KPS_WINDOW = 1000;
+        const int INTERVAL_CHECK = 50;
+        Color RED = Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(48)))));
+        Color GREEN = Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(255)))), ((int)(((byte)(95)))));
+        const int WM_NCLBUTTONDOWN = 0xA1;
+        const int HT_CAPTION = 0x2;
+
         KeyboardHook hook = new KeyboardHook(true);
         Dictionary<STATS, Label> fields = new Dictionary<STATS, Label>();
         Dictionary<Keys, Label> arrows = new Dictionary<Keys, Label>();
@@ -36,13 +43,11 @@ namespace KeyTracker {
             { Keys.Oem7, false }
         };
 
-        const int KPS_WINDOW = 1000;
-        const int INTERVAL_CHECK = 50;
-
         public KeyTracker() {
             InitializeComponent();
             hook.KeyDown += KeyPressed;
             hook.KeyUp += KeyReleased;
+            this.MouseDown += OnMouseDown;
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -50,7 +55,7 @@ namespace KeyTracker {
             fields[STATS.Kps] = KpsBox;
             fields[STATS.PeakKps] = PeakKpsBox;
             fields[STATS.TotalKeys] = TotalKeysBox;
-            fields[STATS.ElapsedTime] = ElapsedTimeBox;
+            fields[STATS.ElapsedTime] = TimeBox;
 
             arrows[Keys.A] = LeftBox;
             arrows[Keys.S] = DownBox;
@@ -61,7 +66,23 @@ namespace KeyTracker {
             interval.Interval = INTERVAL_CHECK;
         }
 
+        private void OnMouseDown(object sender, MouseEventArgs e) {
+            if (e.Button == MouseButtons.Left) {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+
         private void KeyPressed(Keys key, bool Shift, bool Ctrl, bool Alt) {
+            //if (started && !pressed[key]) {
+            //    ++totalKeys;
+            //    pressed[key] = true;
+            //    times.Enqueue(timer.ElapsedMilliseconds);
+            //    fields[STATS.TotalKeys].Text = "Total Keys: " + totalKeys;
+
+            //    UpdateKps();
+            //    UpdateArrows();
+            //}
             switch (key) {
                 case Keys.A:
                 case Keys.S:
@@ -71,7 +92,7 @@ namespace KeyTracker {
                         ++totalKeys;
                         pressed[key] = true;
                         times.Enqueue(timer.ElapsedMilliseconds);
-                        fields[STATS.TotalKeys].Text = "Total Keys: " + totalKeys;
+                        fields[STATS.TotalKeys].Text = totalKeys.ToString();
 
                         UpdateKps();
                         UpdateArrows();
@@ -80,17 +101,17 @@ namespace KeyTracker {
                 case Keys.R:
                     if (Alt) {
                         if (started) {
-                            fields[STATS.Status].Text = "STOPPED";
+                            fields[STATS.Status].BackColor = RED;
                             timer.Stop();
                             interval.Stop();
                         } else {
-                            fields[STATS.Status].Text = "STARTED";
+                            fields[STATS.Status].BackColor = GREEN;
                             peakKps = 0;
                             totalKeys = 0;
                             times.Clear();
-                            fields[STATS.Kps].Text = "KPS: " + times.Count;
-                            fields[STATS.PeakKps].Text = "Peak KPS: " + peakKps;
-                            fields[STATS.TotalKeys].Text = "Total Keys: " + totalKeys;
+                            fields[STATS.Kps].Text = times.Count.ToString();
+                            fields[STATS.PeakKps].Text = peakKps.ToString();
+                            fields[STATS.TotalKeys].Text = totalKeys.ToString();
                             timer.Reset();
                             timer.Start();
                             interval.Start();
@@ -102,6 +123,8 @@ namespace KeyTracker {
         }
 
         private void KeyReleased(Keys key, bool Shift, bool Ctrl, bool Alt) {
+            //pressed[key] = false;
+            //UpdateArrows();
             switch (key) {
                 case Keys.A:
                 case Keys.S:
@@ -114,7 +137,7 @@ namespace KeyTracker {
         }
 
         private void IntervalProcessor(Object obj, EventArgs eventArgs) {
-            fields[STATS.ElapsedTime].Text = "Elapsed Time: " + timer.ElapsedMilliseconds / 1000.0;
+            fields[STATS.ElapsedTime].Text = String.Format("{0:0.00}", timer.ElapsedMilliseconds / 1000.0);
             UpdateKps();
         }
 
@@ -124,10 +147,10 @@ namespace KeyTracker {
             }
 
             int kps = (int)(times.Count * (1000.0 / KPS_WINDOW));
-            fields[STATS.Kps].Text = "KPS: " + kps;
+            fields[STATS.Kps].Text = kps.ToString();
             if (kps > peakKps) {
                 peakKps = kps;
-                fields[STATS.PeakKps].Text = "Peak KPS: " + peakKps;
+                fields[STATS.PeakKps].Text = peakKps.ToString();
             }
         }
 
@@ -140,5 +163,63 @@ namespace KeyTracker {
                 }
             }
         }
+
+        private void DownBox_MouseDown(object sender, MouseEventArgs e) {
+            OnMouseDown(sender, e);
+        }
+
+        private void TotalKeysBox_MouseDown(object sender, MouseEventArgs e) {
+            OnMouseDown(sender, e);
+        }
+
+        private void PeakKpsBox_MouseDown(object sender, MouseEventArgs e) {
+            OnMouseDown(sender, e);
+        }
+
+        private void KpsBox_MouseDown(object sender, MouseEventArgs e) {
+            OnMouseDown(sender, e);
+        }
+
+        private void RightBox_MouseDown(object sender, MouseEventArgs e) {
+            OnMouseDown(sender, e);
+        }
+
+        private void UpBox_MouseDown(object sender, MouseEventArgs e) {
+            OnMouseDown(sender, e);
+        }
+
+        private void TimeBox_MouseDown(object sender, MouseEventArgs e) {
+            OnMouseDown(sender, e);
+        }
+
+        private void LeftBox_MouseDown(object sender, MouseEventArgs e) {
+            OnMouseDown(sender, e);
+        }
+
+        private void TimeLabel_MouseDown(object sender, MouseEventArgs e) {
+            OnMouseDown(sender, e);
+        }
+
+        private void TotalKeysLabel_MouseDown(object sender, MouseEventArgs e) {
+            OnMouseDown(sender, e);
+        }
+
+        private void PeakKpsLabel_MouseDown(object sender, MouseEventArgs e) {
+            OnMouseDown(sender, e);
+        }
+
+        private void KpsLabel_MouseDown(object sender, MouseEventArgs e) {
+            OnMouseDown(sender, e);
+        }
+
+        private void StatusBox_MouseDown(object sender, MouseEventArgs e) {
+            OnMouseDown(sender, e);
+        }
+
+        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+        [System.Runtime.InteropServices.DllImportAttribute("user32.dll")]
+        public static extern bool ReleaseCapture();
     }
 }
