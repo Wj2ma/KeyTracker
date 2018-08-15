@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,10 +21,36 @@ namespace KeyTracker {
             ElapsedTime = 4
         }
 
+        private Dictionary<string, Keys> keyMap = new Dictionary<string, Keys>() {
+            { "[", Keys.OemOpenBrackets },
+            { "]", Keys.OemCloseBrackets },
+            { ";", Keys.OemSemicolon },
+            { "'", Keys.OemQuotes },
+            { ",", Keys.Oemcomma },
+            { ".", Keys.OemPeriod },
+            { "/", Keys.OemQuestion },
+            { "-", Keys.OemMinus},
+            { "=", Keys.Oemplus },
+            { "LEFT", Keys.Left },
+            { "DOWN", Keys.Down },
+            { "UP", Keys.Up },
+            { "RIGHT", Keys.Right },
+            { "NUM0", Keys.NumPad0 },
+            { "NUM1", Keys.NumPad1 },
+            { "NUM2", Keys.NumPad2 },
+            { "NUM3", Keys.NumPad3 },
+            { "NUM4", Keys.NumPad4 },
+            { "NUM5", Keys.NumPad5 },
+            { "NUM6", Keys.NumPad6 },
+            { "NUM7", Keys.NumPad7 },
+            { "NUM8", Keys.NumPad8 },
+            { "NUM9", Keys.NumPad9 },
+        };
+
         private const int KPS_WINDOW = 1000;
         private const int INTERVAL_CHECK = 50;
-        private static Color RED = Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(48)))));
-        private static Color GREEN = Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(255)))), ((int)(((byte)(95)))));
+        private static Color RED = Color.FromArgb(255, 0, 48);
+        private static Color GREEN = Color.FromArgb(95, 255, 95);
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HT_CAPTION = 0x2;
 
@@ -36,19 +64,25 @@ namespace KeyTracker {
         int totalKeys = 0;
         bool started = false;
         Queue<long> times = new Queue<long>();
-        Dictionary<Keys, bool> pressed = new Dictionary<Keys, bool>() {
-            { Keys.A, false },
-            { Keys.S, false },
-            { Keys.Oem1, false },
-            { Keys.Oem7, false }
-        };
+        Keys[] keys = new Keys[4];
+        Dictionary<Keys, bool> pressed;
 
         public KeyTracker() {
             InitializeComponent();
+
             hook.KeyDown += KeyPressed;
             hook.KeyUp += KeyReleased;
             this.MouseDown += OnMouseDown;
-            this.TopMost = true;
+
+            Config config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.txt"));
+
+            keys[0] = getKey(config.Left);
+            keys[1] = getKey(config.Down);
+            keys[2] = getKey(config.Up);
+            keys[3] = getKey(config.Right);
+            pressed = keys.ToDictionary(x => x, x => false);
+
+            this.TopMost = config.Overlay;
         }
 
         private void Form1_Load(object sender, EventArgs e) {
@@ -58,10 +92,10 @@ namespace KeyTracker {
             fields[STATS.TotalKeys] = TotalKeysBox;
             fields[STATS.ElapsedTime] = TimeBox;
 
-            arrows[Keys.A] = LeftBox;
-            arrows[Keys.S] = DownBox;
-            arrows[Keys.Oem1] = UpBox;
-            arrows[Keys.Oem7] = RightBox;
+            arrows[keys[0]] = LeftBox;
+            arrows[keys[1]] = DownBox;
+            arrows[keys[2]] = UpBox;
+            arrows[keys[3]] = RightBox;
 
             interval.Tick += new EventHandler(IntervalProcessor);
             interval.Interval = INTERVAL_CHECK;
@@ -84,56 +118,41 @@ namespace KeyTracker {
             //    UpdateKps();
             //    UpdateArrows();
             //}
-            switch (key) {
-                case Keys.A:
-                case Keys.S:
-                case Keys.Oem1:
-                case Keys.Oem7:
-                    if (started && !pressed[key]) {
-                        ++totalKeys;
-                        pressed[key] = true;
-                        times.Enqueue(timer.ElapsedMilliseconds);
-                        fields[STATS.TotalKeys].Text = totalKeys.ToString();
+            if (started && keys.Contains(key)) {
+                if (started && !pressed[key]) {
+                    ++totalKeys;
+                    pressed[key] = true;
+                    times.Enqueue(timer.ElapsedMilliseconds);
+                    fields[STATS.TotalKeys].Text = totalKeys.ToString();
 
-                        UpdateKps();
-                        UpdateArrows();
-                    }
-                    break;
-                case Keys.R:
-                    if (Alt) {
-                        if (started) {
-                            fields[STATS.Status].BackColor = RED;
-                            timer.Stop();
-                            interval.Stop();
-                        } else {
-                            fields[STATS.Status].BackColor = GREEN;
-                            peakKps = 0;
-                            totalKeys = 0;
-                            times.Clear();
-                            fields[STATS.Kps].Text = times.Count.ToString();
-                            fields[STATS.PeakKps].Text = peakKps.ToString();
-                            fields[STATS.TotalKeys].Text = totalKeys.ToString();
-                            timer.Reset();
-                            timer.Start();
-                            interval.Start();
-                        }
-                        started = !started;
-                    }
-                    break;
+                    UpdateKps();
+                    UpdateArrows();
+                }
+            } else if (Alt && key == Keys.R) {
+                if (started) {
+                    fields[STATS.Status].BackColor = RED;
+                    timer.Stop();
+                    interval.Stop();
+                } else {
+                    fields[STATS.Status].BackColor = GREEN;
+                    peakKps = 0;
+                    totalKeys = 0;
+                    times.Clear();
+                    fields[STATS.Kps].Text = times.Count.ToString();
+                    fields[STATS.PeakKps].Text = peakKps.ToString();
+                    fields[STATS.TotalKeys].Text = totalKeys.ToString();
+                    timer.Reset();
+                    timer.Start();
+                    interval.Start();
+                }
+                started = !started;
             }
         }
 
         private void KeyReleased(Keys key, bool Shift, bool Ctrl, bool Alt) {
-            //pressed[key] = false;
-            //UpdateArrows();
-            switch (key) {
-                case Keys.A:
-                case Keys.S:
-                case Keys.Oem1:
-                case Keys.Oem7:
-                    pressed[key] = false;
-                    UpdateArrows();
-                    break;
+            if (keys.Contains(key)) {
+                pressed[key] = false;
+                UpdateArrows();
             }
         }
 
@@ -163,6 +182,14 @@ namespace KeyTracker {
                     arrows[arrow.Key].BackColor = Color.OldLace;
                 }
             }
+        }
+
+        private Keys getKey(string key) {
+            if (keyMap.ContainsKey(key)) {
+                return keyMap[key];
+            }
+            char test = key.ToUpper()[0];
+            return (Keys)test;
         }
 
         private void DownBox_MouseDown(object sender, MouseEventArgs e) {

@@ -1,0 +1,7 @@
+{
+	"Left": "a",
+	"Right": "'",
+	"Down": "s",
+	"Up": ";",
+	"Overlay": true
+}
