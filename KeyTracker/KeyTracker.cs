@@ -19,12 +19,12 @@ namespace KeyTracker {
             ElapsedTime = 4
         }
 
-        const int KPS_WINDOW = 1000;
-        const int INTERVAL_CHECK = 50;
-        Color RED = Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(48)))));
-        Color GREEN = Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(255)))), ((int)(((byte)(95)))));
-        const int WM_NCLBUTTONDOWN = 0xA1;
-        const int HT_CAPTION = 0x2;
+        private const int KPS_WINDOW = 1000;
+        private const int INTERVAL_CHECK = 50;
+        private static Color RED = Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(48)))));
+        private static Color GREEN = Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(255)))), ((int)(((byte)(95)))));
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int HT_CAPTION = 0x2;
 
         KeyboardHook hook = new KeyboardHook(true);
         Dictionary<STATS, Label> fields = new Dictionary<STATS, Label>();
@@ -48,6 +48,7 @@ namespace KeyTracker {
             hook.KeyDown += KeyPressed;
             hook.KeyUp += KeyReleased;
             this.MouseDown += OnMouseDown;
+            this.TopMost = true;
         }
 
         private void Form1_Load(object sender, EventArgs e) {
