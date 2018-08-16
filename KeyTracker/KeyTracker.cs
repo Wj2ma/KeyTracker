@@ -185,11 +185,11 @@ namespace KeyTracker {
         }
 
         private Keys getKey(string key) {
+            key = key.ToUpper();
             if (keyMap.ContainsKey(key)) {
                 return keyMap[key];
             }
-            char test = key.ToUpper()[0];
-            return (Keys)test;
+            return (Keys)key[0];
         }
 
         private void DownBox_MouseDown(object sender, MouseEventArgs e) {
