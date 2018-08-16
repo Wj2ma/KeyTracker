@@ -37,6 +37,8 @@ Overlay - set to true if you want the window to appear on top of all your other 
 
 # USAGE
 
+Run KeyTracker.exe to start the program.
+
 To start and stop the tracker, press ALT + R. The red bar should turn green, and the timer should start counting up when you start tracking.
 
 ## What do these stats mean?
