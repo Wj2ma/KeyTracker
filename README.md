@@ -1,5 +1,5 @@
 # KeyTracker
-Tracks key presses for FFR, StepMania, or any other 4 key game.
+Tracks key presses for FFR, StepMania, or any other 4 key game. Only supports Windows operating system.
 
 # SETUP
 
