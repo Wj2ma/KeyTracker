@@ -49,14 +49,21 @@ namespace KeyTracker {
 
         private const int KPS_WINDOW = 1000;
         private const int INTERVAL_CHECK = 50;
-        private static Color RED = Color.FromArgb(255, 0, 48);
-        private static Color GREEN = Color.FromArgb(95, 255, 95);
+        private static Color RICH_RED = Color.FromArgb(255, 0, 48);
+        private static Color GORGEOUS_GREEN = Color.FromArgb(95, 255, 95);
+        private static Color PRECIOUS_PURPLE = Color.FromArgb(170, 119, 255);
+        private static Color BEST_BLUE = Color.FromArgb(86, 195, 255);
+        private static Color GENESIS_GREEN = Color.FromArgb(153, 255, 204);
+        private static Color OXY_ORANGE = Color.FromArgb(255, 165, 0);
+
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HT_CAPTION = 0x2;
 
         KeyboardHook hook = new KeyboardHook(true);
         Dictionary<STATS, Label> fields = new Dictionary<STATS, Label>();
         Dictionary<Keys, Label> arrows = new Dictionary<Keys, Label>();
+
+        Config config;
 
         Stopwatch timer = new Stopwatch();
         Timer interval = new Timer();
@@ -74,7 +81,7 @@ namespace KeyTracker {
             hook.KeyUp += KeyReleased;
             this.MouseDown += OnMouseDown;
 
-            Config config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.txt"));
+            config = JsonConvert.DeserializeObject<Config>(File.ReadAllText("config.txt"));
 
             keys[0] = getKey(config.Left);
             keys[1] = getKey(config.Down);
@@ -130,11 +137,11 @@ namespace KeyTracker {
                 }
             } else if (Alt && key == Keys.R) {
                 if (started) {
-                    fields[STATS.Status].BackColor = RED;
+                    fields[STATS.Status].BackColor = RICH_RED;
                     timer.Stop();
                     interval.Stop();
                 } else {
-                    fields[STATS.Status].BackColor = GREEN;
+                    fields[STATS.Status].BackColor = GORGEOUS_GREEN;
                     peakKps = 0;
                     totalKeys = 0;
                     times.Clear();
@@ -168,6 +175,29 @@ namespace KeyTracker {
 
             int kps = (int)(times.Count * (1000.0 / KPS_WINDOW));
             fields[STATS.Kps].Text = kps.ToString();
+
+            // 0-9 reg
+            // 10-12 gorg green
+            // 13-15 blue
+            // 16-18 orange
+            // 19-20 purple
+            // 21+ red
+            if (config.KpsColours) {
+                if (kps < config.Tier0) {
+                    fields[STATS.Kps].ForeColor = GENESIS_GREEN;
+                } else if (kps < config.Tier1) {
+                    fields[STATS.Kps].ForeColor = GORGEOUS_GREEN;
+                } else if (kps < config.Tier2) {
+                    fields[STATS.Kps].ForeColor = BEST_BLUE;
+                } else if (kps < config.Tier3) {
+                    fields[STATS.Kps].ForeColor = OXY_ORANGE;
+                } else if (kps < config.Tier4) {
+                    fields[STATS.Kps].ForeColor = PRECIOUS_PURPLE;
+                } else {
+                    fields[STATS.Kps].ForeColor = RICH_RED;
+                }
+            }
+
             if (kps > peakKps) {
                 peakKps = kps;
                 fields[STATS.PeakKps].Text = peakKps.ToString();
@@ -177,7 +207,7 @@ namespace KeyTracker {
         private void UpdateArrows() {
             foreach (var arrow in pressed) {
                 if (arrow.Value) {
-                    arrows[arrow.Key].BackColor = Color.MediumSlateBlue;
+                    arrows[arrow.Key].BackColor = PRECIOUS_PURPLE;
                 } else {
                     arrows[arrow.Key].BackColor = Color.OldLace;
                 }

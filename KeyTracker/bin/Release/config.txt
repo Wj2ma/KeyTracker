@@ -3,5 +3,11 @@
 	"Down": "s",
 	"Up": ";",
 	"Right": "'",
-	"Overlay": true
+	"Overlay": true,
+	"KpsColours": true,
+	"Tier0": 9,
+	"Tier1": 12,
+	"Tier2": 15,
+	"Tier3": 18,
+	"Tier4": 20
 }

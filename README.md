@@ -23,15 +23,33 @@ Right - the key you press for hitting the right arrow
 
 Overlay - set to true if you want the window to appear on top of all your other windows. Set it to false otherwise.
 
+KpsColours - set to true if you want the kps label to change colours when it reaches certain thresholds. Set it to false otherwise.
+
+Tier0 - when KpsColours is true, kps values up to and including this number will have the tier 0 colour.
+
+Tier1 - when KpsColours is true, kps values in between Tier0 and this number will have the tier 1 colour.
+
+Tier2 - when KpsColours is true, kps values in between Tier1 and this number will have the tier 2 colour.
+
+Tier3 - when KpsColours is true, kps values in between Tier2 and this number will have the tier 3 colour.
+
+Tier4 - when KpsColours is true, kps values in between Tier3 and this number will have the tier 4 colour. Everything above will have the tier 5 colour.
+
 ## Example
 
 ```
 {
-  "Left": "a",
-  "Down": "s",
-  "Up": ";",
-  "Right": "'",
-  "Overlay": true
+	"Left": "a",
+	"Down": "s",
+	"Up": ";",
+	"Right": "'",
+	"Overlay": true,
+	"KpsColours": true,
+	"Tier0": 9,
+	"Tier1": 12,
+	"Tier2": 15,
+	"Tier3": 18,
+	"Tier4": 20
 }
 ```
 
