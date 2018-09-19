@@ -175,33 +175,32 @@ namespace KeyTracker {
 
             int kps = (int)(times.Count * (1000.0 / KPS_WINDOW));
             fields[STATS.Kps].Text = kps.ToString();
-
-            // 0-9 reg
-            // 10-12 gorg green
-            // 13-15 blue
-            // 16-18 orange
-            // 19-20 purple
-            // 21+ red
-            if (config.KpsColours) {
-                if (kps < config.Tier0) {
-                    fields[STATS.Kps].ForeColor = GENESIS_GREEN;
-                } else if (kps < config.Tier1) {
-                    fields[STATS.Kps].ForeColor = GORGEOUS_GREEN;
-                } else if (kps < config.Tier2) {
-                    fields[STATS.Kps].ForeColor = BEST_BLUE;
-                } else if (kps < config.Tier3) {
-                    fields[STATS.Kps].ForeColor = OXY_ORANGE;
-                } else if (kps < config.Tier4) {
-                    fields[STATS.Kps].ForeColor = PRECIOUS_PURPLE;
-                } else {
-                    fields[STATS.Kps].ForeColor = RICH_RED;
-                }
-            }
+            fields[STATS.Kps].ForeColor = getKpsColor(kps);
 
             if (kps > peakKps) {
                 peakKps = kps;
                 fields[STATS.PeakKps].Text = peakKps.ToString();
+                fields[STATS.PeakKps].ForeColor = getKpsColor(peakKps);
             }
+        }
+
+        private Color getKpsColor(int kps) {
+            if (config.KpsColours) {
+                if (kps < config.Tier0) {
+                    return GENESIS_GREEN;
+                } else if (kps < config.Tier1) {
+                    return GORGEOUS_GREEN;
+                } else if (kps < config.Tier2) {
+                    return BEST_BLUE;
+                } else if (kps < config.Tier3) {
+                    return OXY_ORANGE;
+                } else if (kps < config.Tier4) {
+                    return PRECIOUS_PURPLE;
+                } else {
+                    return RICH_RED;
+                }
+            }
+            return GENESIS_GREEN;
         }
 
         private void UpdateArrows() {

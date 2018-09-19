@@ -43,7 +43,7 @@
             this.StatusBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(0)))), ((int)(((byte)(48)))));
             this.StatusBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.StatusBox.ForeColor = System.Drawing.Color.Black;
-            this.StatusBox.Location = new System.Drawing.Point(10, 140);
+            this.StatusBox.Location = new System.Drawing.Point(10, 10);
             this.StatusBox.Name = "StatusBox";
             this.StatusBox.Size = new System.Drawing.Size(380, 25);
             this.StatusBox.TabIndex = 10;
@@ -53,7 +53,7 @@
             // 
             this.KpsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.KpsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(255)))), ((int)(((byte)(204)))));
-            this.KpsLabel.Location = new System.Drawing.Point(16, 3);
+            this.KpsLabel.Location = new System.Drawing.Point(16, 88);
             this.KpsLabel.Name = "KpsLabel";
             this.KpsLabel.Size = new System.Drawing.Size(61, 42);
             this.KpsLabel.TabIndex = 11;
@@ -65,7 +65,7 @@
             // 
             this.PeakKpsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PeakKpsLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(255)))), ((int)(((byte)(204)))));
-            this.PeakKpsLabel.Location = new System.Drawing.Point(13, 45);
+            this.PeakKpsLabel.Location = new System.Drawing.Point(13, 130);
             this.PeakKpsLabel.Name = "PeakKpsLabel";
             this.PeakKpsLabel.Size = new System.Drawing.Size(64, 42);
             this.PeakKpsLabel.TabIndex = 12;
@@ -77,7 +77,7 @@
             // 
             this.TotalKeysLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalKeysLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(255)))), ((int)(((byte)(204)))));
-            this.TotalKeysLabel.Location = new System.Drawing.Point(158, 3);
+            this.TotalKeysLabel.Location = new System.Drawing.Point(158, 88);
             this.TotalKeysLabel.Name = "TotalKeysLabel";
             this.TotalKeysLabel.Size = new System.Drawing.Size(98, 42);
             this.TotalKeysLabel.TabIndex = 13;
@@ -89,7 +89,7 @@
             // 
             this.TimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TimeLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(255)))), ((int)(((byte)(204)))));
-            this.TimeLabel.Location = new System.Drawing.Point(158, 45);
+            this.TimeLabel.Location = new System.Drawing.Point(158, 130);
             this.TimeLabel.Name = "TimeLabel";
             this.TimeLabel.Size = new System.Drawing.Size(98, 42);
             this.TimeLabel.TabIndex = 14;
@@ -102,7 +102,7 @@
             this.LeftBox.BackColor = System.Drawing.Color.OldLace;
             this.LeftBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LeftBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(19)))), ((int)(((byte)(20)))));
-            this.LeftBox.Location = new System.Drawing.Point(105, 87);
+            this.LeftBox.Location = new System.Drawing.Point(105, 45);
             this.LeftBox.Name = "LeftBox";
             this.LeftBox.Size = new System.Drawing.Size(40, 40);
             this.LeftBox.TabIndex = 15;
@@ -115,7 +115,7 @@
             this.DownBox.BackColor = System.Drawing.Color.OldLace;
             this.DownBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.DownBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(19)))), ((int)(((byte)(20)))));
-            this.DownBox.Location = new System.Drawing.Point(155, 87);
+            this.DownBox.Location = new System.Drawing.Point(155, 45);
             this.DownBox.Name = "DownBox";
             this.DownBox.Size = new System.Drawing.Size(40, 40);
             this.DownBox.TabIndex = 16;
@@ -128,7 +128,7 @@
             this.UpBox.BackColor = System.Drawing.Color.OldLace;
             this.UpBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UpBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(19)))), ((int)(((byte)(20)))));
-            this.UpBox.Location = new System.Drawing.Point(205, 87);
+            this.UpBox.Location = new System.Drawing.Point(205, 45);
             this.UpBox.Name = "UpBox";
             this.UpBox.Size = new System.Drawing.Size(40, 40);
             this.UpBox.TabIndex = 17;
@@ -141,7 +141,7 @@
             this.RightBox.BackColor = System.Drawing.Color.OldLace;
             this.RightBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RightBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(19)))), ((int)(((byte)(20)))));
-            this.RightBox.Location = new System.Drawing.Point(255, 87);
+            this.RightBox.Location = new System.Drawing.Point(255, 45);
             this.RightBox.Name = "RightBox";
             this.RightBox.Size = new System.Drawing.Size(40, 40);
             this.RightBox.TabIndex = 18;
@@ -154,7 +154,7 @@
             this.KpsBox.AutoSize = true;
             this.KpsBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.KpsBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(255)))), ((int)(((byte)(204)))));
-            this.KpsBox.Location = new System.Drawing.Point(71, 3);
+            this.KpsBox.Location = new System.Drawing.Point(71, 88);
             this.KpsBox.Name = "KpsBox";
             this.KpsBox.Size = new System.Drawing.Size(40, 42);
             this.KpsBox.TabIndex = 19;
@@ -167,7 +167,7 @@
             this.PeakKpsBox.AutoSize = true;
             this.PeakKpsBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PeakKpsBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(255)))), ((int)(((byte)(204)))));
-            this.PeakKpsBox.Location = new System.Drawing.Point(71, 45);
+            this.PeakKpsBox.Location = new System.Drawing.Point(71, 130);
             this.PeakKpsBox.Name = "PeakKpsBox";
             this.PeakKpsBox.Size = new System.Drawing.Size(40, 42);
             this.PeakKpsBox.TabIndex = 20;
@@ -180,7 +180,7 @@
             this.TotalKeysBox.AutoSize = true;
             this.TotalKeysBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TotalKeysBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(255)))), ((int)(((byte)(204)))));
-            this.TotalKeysBox.Location = new System.Drawing.Point(249, 3);
+            this.TotalKeysBox.Location = new System.Drawing.Point(249, 88);
             this.TotalKeysBox.Name = "TotalKeysBox";
             this.TotalKeysBox.Size = new System.Drawing.Size(40, 42);
             this.TotalKeysBox.TabIndex = 21;
@@ -193,7 +193,7 @@
             this.TimeBox.AutoSize = true;
             this.TimeBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TimeBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(153)))), ((int)(((byte)(255)))), ((int)(((byte)(204)))));
-            this.TimeBox.Location = new System.Drawing.Point(249, 45);
+            this.TimeBox.Location = new System.Drawing.Point(249, 130);
             this.TimeBox.Name = "TimeBox";
             this.TimeBox.Size = new System.Drawing.Size(40, 42);
             this.TimeBox.TabIndex = 22;
