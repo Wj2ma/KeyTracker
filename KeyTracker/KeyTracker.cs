@@ -146,7 +146,9 @@ namespace KeyTracker {
                     totalKeys = 0;
                     times.Clear();
                     fields[STATS.Kps].Text = times.Count.ToString();
+                    fields[STATS.Kps].ForeColor = GENESIS_GREEN;
                     fields[STATS.PeakKps].Text = peakKps.ToString();
+                    fields[STATS.PeakKps].ForeColor = GENESIS_GREEN;
                     fields[STATS.TotalKeys].Text = totalKeys.ToString();
                     timer.Reset();
                     timer.Start();
